@@ -1,0 +1,8 @@
+{
+	"name": "proxy",
+	"version": "0.0.1",
+	"main": "proxy.js",
+	"dependencies": {
+		"izaak-npm-test": "0.0.2"
+	}
+}
