@@ -4,7 +4,7 @@ var should  = require('should');
 var Accounts = require('../models/account');
 var server = require('../server.js');
 var http = require('http');
-
+var express = require('express');
 
 
 
@@ -12,16 +12,18 @@ module.exports = {
 
 	serverTests: {
 		setUp: function(callback){
-			server.listen(config.port);
-			server.on("listening", callback);
+			this.server = express.createServer();
+			this.server.use(server)
+			this.server.listen(config.port);
+			this.server.on("listening", callback);
 		},
 
 		tearDown: function(callback){
-			server.close();
+			this.server.close();
 			callback();
 		},
 
-		"Test Server 1": function(test){
+		"Test Body": function(test){
 			var options = {
 				host:"localhost",
 				port:config.port,
@@ -35,7 +37,20 @@ module.exports = {
 				});
 				response.on('end', function(chunk){
 					test.ok(body.should.be.eql("Hello there!"));
-					test.strictEqual(body, "Hello there!");
+					test.done();
+				});
+			});
+		},
+		"Test Headers": function(test){
+			var options = {
+				host:"localhost",
+				port:config.port,
+				path:"/"
+
+			}
+			request = http.get(options,function(response){
+				response.on('end', function(){
+					test.ok(response.statusCode.should.be.eql(200));
 					test.done();
 				});
 			});
