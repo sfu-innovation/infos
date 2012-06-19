@@ -1,0 +1,11 @@
+{
+
+	"name":"unit_testing",
+	"version":"0.0.1",
+	"dependencies":{
+		"express":">=0.0.0",
+		"nodeunit":">=0.0.0",
+		"should":">=0.0.0",
+		"backbone":">=0.0.0"
+	}
+}
