@@ -6,16 +6,43 @@ var server = require('../server.js');
 var http = require('http');
 
 
-startUp = function(){
-	server.listen(config.port);
-}
 
-tearDown = function(){
-	server.close();
-}
 
 module.exports = {
 
+	serverTests: {
+		setUp: function(callback){
+			server.listen(config.port);
+			server.on("listening", callback);
+		},
+
+		tearDown: function(callback){
+			server.close();
+			callback();
+		},
+
+		"Test Server 1": function(test){
+			var options = {
+				host:"localhost",
+				port:config.port,
+				path:"/"
+
+			}
+			request = http.get(options,function(response){
+				var body = "";
+				response.on('data', function(chunk){
+					body += chunk;
+				});
+				response.on('end', function(chunk){
+					test.ok(body.should.be.eql("Hello there!"));
+					test.strictEqual(body, "Hello there!");
+					test.done();
+				});
+			});
+		}
+	},
+
+/*	
 	"Create New Account": function(test){
 
 		var myAccount = new Accounts.Account();
@@ -46,25 +73,6 @@ module.exports = {
 		test.ok(myAccount.get("balance").should.be.eql(1020));
 		delete myAccount;
 		test.done();
-	},
-	"Test Server": function(test){
-		startUp();	
-		var options = {
-			host:"localhost",
-			port:config.port,
-			path:"/"
-
-		}
-		request = http.get(options,function(response){
-			var body = "";
-			response.on('data', function(chunk){
-				body += chunk;
-			});
-			response.on('end', function(chunk){
-				test.ok(body.should.be.eql("Hello there!"));
-				test.done();
-				tearDown();
-			});
-		});
 	}
+*/	
 }
