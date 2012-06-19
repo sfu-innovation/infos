@@ -1,0 +1,9 @@
+{
+	"name": "test",
+	"version": "0.0.1",
+	"main": "test.js",
+	"dependencies": {
+		"izaak-npm-test": "0.0.2",
+		"klemarewski-test": "0.0.2"
+	}
+}
