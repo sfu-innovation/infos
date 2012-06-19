@@ -1,7 +1,0 @@
-var
-	jhcServer = require('./index'),
-	server = require('express').createServer();
-
-server.use("/jhc", jhcServer);
-server.listen(8888);
-
