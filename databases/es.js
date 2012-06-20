@@ -25,7 +25,13 @@ ties.document("tie-2", {
 
 ties.search({
 	query: { match_all : {}},
-	filter: { prefix: { name : "dots"}}
+	filter: { prefix: { name : ""}}
 }, function(err, results){
-	console.log(results.hits.hits);
+	results.hits.hits.forEach(function(result){
+		var item = result._source;
+		var score = item.votes.reduce(function(a, b){
+			return a + b
+		})/item.votes.length;
+		console.log(item.name + ": " + score);
+})
 })
