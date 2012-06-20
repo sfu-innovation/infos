@@ -1,0 +1,9 @@
+{
+	"name" : "databases",
+	"version" : "0.0.1",
+	"dependencies" : {
+		"mysql" : ">=0.0.1",
+		"redis" : ">=0.0.1",
+		"com.izaakschroeder.elasticsearch" : ">=0.0.3"
+	} 	
+}
